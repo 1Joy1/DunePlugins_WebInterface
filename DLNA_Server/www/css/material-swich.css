@@ -1,0 +1,146 @@
+.material-switch > input[type="checkbox"] {
+    display: none;   
+}
+
+.material-switch > label {
+    cursor: pointer;
+    height: 0px;
+    position: relative; 
+    width: 40px;  
+}
+
+.material-switch > label::before {
+    background: rgb(0, 0, 0);
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    content: '';
+    height: 16px;
+    margin-top: -8px;
+    position:absolute;
+    opacity: 0.3;
+    transition: all 0.4s ease-in-out;
+    width: 40px;
+}
+.material-switch > label::after {
+    background: rgb(255, 255, 255);
+    border-radius: 16px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    content: '';
+    height: 24px;
+    left: -4px;
+    margin-top: -8px;
+    position: absolute;
+    top: -4px;
+    transition: all 0.3s ease-in-out;
+    width: 24px;
+}
+.material-switch > input[type="checkbox"]:checked + label::before {
+    background: inherit;
+    opacity: 0.5;
+}
+.material-switch > input[type="checkbox"]:checked + label::after {
+    background: inherit;
+    left: 20px;
+}
+
+
+
+
+
+.tools-block{
+    padding: 5px 40px;
+    margin: 0px auto;
+    width: 90%;
+    background-color: #31353a;
+    border-radius: 8px;
+    border: 2px solid #3f454a;
+    max-height: 300px;
+    overflow: auto;
+}
+
+.tools-display{
+    margin: 0px auto;
+    width: 90%;
+	padding:5px 8px;
+	border:2px solid #3598DB;
+	border-radius:8px;
+	color:green;
+	font:20px Verdana;
+	margin-bottom:15px;
+    min-height: 38px;
+}
+
+.tools-block img{
+	padding:0px 2px;
+}
+
+.tools-block a{
+	color: #fe8200;
+    display: block;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.tools-block p {
+    margin:0px;
+}
+
+.tools-block a:active{
+	background-color:blue !important;
+}
+
+.tools-block a:hover{
+	background-color:#3598DC;
+	color:white;
+	border-radius:5px;
+}
+
+.logobrand {
+    width: 49px;
+    height:49px;
+    margin-bottom: -9px;
+    margin-top: -9px;
+    margin-right: 9px;
+}
+.folder-ico {
+    width: 50px;
+    margin: -4px;
+}
+
+.minus-ico {
+    width: 25px;
+}
+
+.bage-status-scan {
+    position: absolute;
+    font-size: 100%;
+    right: 5%;
+    bottom: 5%;
+}
+
+.card-header-status-scan {
+    padding: inherit;
+    font-weight: 600;
+}
+
+.table th, .table td {
+    max-width: 100px;
+}
+
+@media (max-width: 576px) {
+  .folder-ico {
+    width: 40px;
+  }
+  .minus-ico {
+    width: 25px;
+  }
+}
+
+@media (max-width: 420px) {
+  .dev-name {
+    font-size: 2em;
+  }
+  .minus-ico {
+    width: 25px;
+  }
+}

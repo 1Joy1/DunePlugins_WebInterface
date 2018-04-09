@@ -1,0 +1,52 @@
+.menu {
+    position: fixed;
+    left: 10px;
+    top: 85%;
+    padding: 5px;
+    background: #ffe;
+    border: 1px solid #333;
+}
+.dropdown-inverse {
+    background-color: #222;
+    border-color: #080808;
+    color: #c7c6c6;
+}
+.dropdown-inverse>li form{
+    color: #262525;
+}
+.dropdown-inverse>li>a{
+    color: #c7c6c6;
+}
+.dropdown-inverse>li:hover{
+    color:#fff;
+    background-color: #000;
+}
+.dropdown-inverse>li>a:hover{
+    color:#fff;
+    background-color: #000;
+}
+tbody tr:hover {
+    background: #f3bd48; /* Цвет фона при наведении */
+    color: #000000; /* Цвет текста при наведении */
+}
+.font-bold{
+    font-weight: bold;
+}
+.set {
+    background-color: bisque;
+}
+th {
+    cursor: pointer;
+}
+th:hover {
+    background: yellow;
+}
+.th-off {
+    cursor: default;
+}
+.th-off:hover {
+    background: inherit;
+}
+.non-activ {
+    color: #acacac;
+}

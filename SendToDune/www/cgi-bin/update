@@ -1,0 +1,22 @@
+<?php
+error_reporting (E_ALL);
+require_once "do_config.php";
+require_once DuneSystem::$properties['install_dir_path']."/lib/utils.php";
+try {
+	//проверяем, пришли данные или нет
+	if (!isset($_POST['value'])
+			|| '' == $_POST['value']
+			|| !isset($_POST['id'])
+			|| '' == $_POST['id']) {
+		throw new Exception('Не указаны данные записи');
+	}
+	//защита от XSS
+	$note = htmlspecialchars($_POST['value']);
+	$movie_ids = HD::get_items('movie_id');
+	$movie_ids[substr($_POST['id'], 2)]['video_title'] = $note;
+	HD::save_items('movie_id', $movie_ids);
+	HD::save_item_tmp('chpl', 1);
+	echo $note;
+} catch(Exception $e) {
+	echo 'Ошибка: '.$e->getMessage();
+}

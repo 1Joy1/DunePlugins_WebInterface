@@ -1,0 +1,36 @@
+<?php
+error_reporting (E_ALL);
+require_once "do_config.php";
+$warning = '<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div style = "width: 400px; margin: 0 auto; font-family: Verdana, Arial, Helvetica, sans-serif; border-radius: 9px; -moz-border-radius: 9px; background: #FFFFFF;padding-left:12px; padding-right:12px; border: 1px solid #DFDFDF; color: #000000; text-align:center"><h2 style = "font-size: 16px; color: #FF0000">Err!<br>The path of the radio station is not saved!</h2><p style = "font-size:14px"><script>function func() {document.location.href = "do";}setInterval(func, 1000);</script></p></div>';
+$warning2 = '<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div style = "width: 400px; margin: 0 auto; font-family: Verdana, Arial, Helvetica, sans-serif; border-radius: 9px; -moz-border-radius: 9px; background: #FFFFFF;padding-left:12px; padding-right:12px; border: 1px solid #DFDFDF; color: #000000; text-align:center"><h2 style = "font-size: 16px; color: #4682B4">Saved!<br>The path of the radio station is saved!</h2><p style = "font-size:14px"><script>function func() {document.location.href = "do";}setInterval(func, 1000);</script></p></div>';
+if (isset ($_POST['send'])){
+	if ((empty ($_POST['path']))||(empty ($_POST['name']))||(!preg_match("|http|",$_POST['path'])))
+		echo $warning;
+	else{
+		
+		if (preg_match("|\.m3u|",$_POST['path']))
+			$id = $_POST['path'];//to do
+		else
+			$id = $_POST['path'];
+		
+		if ($_POST['image'] == '* Image Path')
+			$poster_url = 'plugin_file://www/lib/logo/radio.png';
+		else
+			$poster_url = $_POST['image'];
+		if ($_POST['info'] == '* Station Description')
+			$info = '';
+		else
+			$info = $_POST['info'];
+
+		$my_playlist = HD::get_items('my_playlist');
+		$t_arr[$id]['name'] = $_POST['name'];
+		$t_arr[$id]['poster_url'] = $poster_url;
+		$t_arr[$id]['info'] = $info;
+		$my_playlist=$t_arr + $my_playlist;
+		HD::save_items('my_playlist', $my_playlist);
+		echo $warning2;
+	}
+		
+}
+// header('Location: do');
+?>

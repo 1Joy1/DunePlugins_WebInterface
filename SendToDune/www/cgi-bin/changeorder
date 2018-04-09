@@ -1,0 +1,26 @@
+<?php
+error_reporting (E_ALL);
+require_once "do_config.php";
+require_once DuneSystem::$properties['install_dir_path']."/lib/utils.php";
+try {
+	//проверяем полученные данные
+	if (!isset($_POST['neworder']) || count($_POST['neworder']) > 5000) {
+		throw new Exception('Недопустимые данные');
+	}
+	
+	$data = json_decode($_POST['neworder']);
+	if (null == $data) {
+		throw new Exception('Недопустимый формат');
+	}
+	$movie_ids = HD::get_items('movie_id');
+	foreach ($data as $note) {
+		$n_ids[$note->order] = $movie_ids[substr($note->id, 5)];
+	}
+	$n_ids = array_values($n_ids);
+	$n_ids = array_reverse($n_ids);
+	HD::save_items('movie_id', $n_ids);
+	HD::save_item_tmp('chpl', 1);
+	echo json_encode(array('status'=>'OK'));
+} catch(Exception $e) {
+	echo json_encode(array('status'=>'ERR', 'mes'=>'Ошибка: '.$e->getMessage()));
+}

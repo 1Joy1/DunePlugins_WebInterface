@@ -1,0 +1,5 @@
+#!/bin/sh
+export http_proxy="http://144.217.48.75:3128"
+echo Content-type: audio/mpeg
+A=`echo "$QUERY_STRING" | sed "s/%20/ /g"`
+exec wget ${A} -c -q -O-

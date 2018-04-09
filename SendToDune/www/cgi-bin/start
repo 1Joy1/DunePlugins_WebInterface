@@ -1,0 +1,14 @@
+<?php
+error_reporting (E_ALL);
+require_once "do_config.php";
+require_once DuneSystem::$properties['install_dir_path']."/lib/utils.php";
+file_get_contents("http://127.0.0.1/cgi-bin/do?cmd=launch_media_url&media_url=plugin_launcher://{name=SendToDune}");
+HD::save_item_tmp('state', 1);
+if ($_POST['start'] == 'all'){
+	HD::save_item_tmp('plugin_vod_series_ndx', 0);
+}else{
+	HD::save_item_tmp('plugin_vod_series_ndx', $_POST['start']);
+}
+
+header('Location: index');
+?>

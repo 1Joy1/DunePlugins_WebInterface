@@ -1,0 +1,21 @@
+<?
+require_once "do_config.php";
+require_once DuneSystem::$properties['install_dir_path']."/lib/utils.php";
+if (isset($_FILES['userfile']['tmp_name'])){
+	$jsd =  unserialize(file_get_contents($_FILES['userfile']['tmp_name']));
+	if (isset($jsd[0]['id'])){
+		HD::save_items('movie_id', $jsd);
+		HD::save_item_tmp('chpl', 1);
+		header('Location: index');
+	}else{
+		header("Content-Type: text/html; charset=utf-8");
+		echo '<script type="text/javascript">'; 
+		echo "alert('Это не плейлист SendToDune!!!');";
+		echo 'window.location.href="index";'; 
+		echo '</script>';
+	}
+	
+}
+
+		
+ 

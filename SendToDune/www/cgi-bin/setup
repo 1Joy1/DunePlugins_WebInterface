@@ -1,0 +1,50 @@
+<?php
+error_reporting (E_ALL);
+require_once "do_config.php";
+require_once DuneSystem::$properties['install_dir_path']."/lib/utils.php";
+if (isset($_POST['shuffle'])){
+	if ($_POST['shuffle'] == 1)
+		HD::save_item('shuffle', 0);
+	else
+		HD::save_item('shuffle', 1);
+	file_get_contents("http://127.0.0.1/cgi-bin/do?cmd=launch_media_url&media_url=plugin_launcher://{name=SendToDune}");
+	HD::save_item_tmp('state', 1);
+	HD::save_item_tmp('plugin_vod_series_ndx', 0);
+	echo HD::get_item('shuffle');
+	exit;
+}
+if (isset($_POST['loop'])){
+	if ($_POST['loop'] == 1)
+		HD::save_item('loop', 0);
+	else
+		HD::save_item('loop', 1);
+	echo HD::get_item('loop');
+	exit;
+}
+if (isset($_POST['ad_pls'])){
+	if ($_POST['ad_pls'] == 1)
+		HD::save_item('ad_pls', 0);
+	else
+		HD::save_item('ad_pls', 1);
+	echo HD::get_item('ad_pls');
+	exit;
+}
+if (isset($_POST['yt_indx'])){
+	if ($_POST['yt_indx'] == 1)
+		HD::save_item('yt_indx', 0);
+	else
+		HD::save_item('yt_indx', 1);
+	echo HD::get_item('yt_indx');
+	exit;
+}
+if (isset($_POST['movie_id'])){
+	$movie_ids = array();
+	HD::save_items('movie_id', $movie_ids);
+	HD::save_item_tmp('chpl', 1);
+	HD::save_item_tmp('plugin_vod_series_ndx', 0);
+	header('Location: index');
+	exit;
+}
+header("HTTP/1.0 404 Not Found");
+exit;
+?>

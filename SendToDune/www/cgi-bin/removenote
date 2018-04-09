@@ -1,0 +1,19 @@
+<?php
+error_reporting (E_ALL);
+require_once "do_config.php";
+require_once DuneSystem::$properties['install_dir_path']."/lib/utils.php";
+try {
+	if (!isset($_POST['id'])) {
+		throw new Exception('Не указан id записи');
+	}
+	$movie_ids = HD::get_items('movie_id');
+	unset ($movie_ids[(substr($_POST['id'], 5))]);
+	$movie_ids = array_values($movie_ids);
+	HD::save_items('movie_id', $movie_ids);
+	HD::save_item_tmp('chpl', 1);
+	$result = array(); 
+	$result['id'] = $_POST['id'];
+	echo json_encode($result);
+} catch(Exception $e) {
+	echo json_encode(array('err'=>'Ошибка: '.$e->getMessage()));
+}

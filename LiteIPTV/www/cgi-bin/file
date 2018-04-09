@@ -1,0 +1,73 @@
+<?
+require_once "do_config.php";
+require_once DuneSystem::$properties['install_dir_path']."/lib/utils.php";
+require_once DuneSystem::$properties['install_dir_path']."/Smart_config.php";
+//echo '<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />';
+//echo '<script type="text/javascript">';
+
+
+foreach ($_FILES as $k => $v){
+	$k = str_replace('_png', '.png',$k);
+	if (($v['size']== 0)&&(file_exists($k))){
+		unlink($k);
+		//echo "alert('Иконка канала удалена!');";
+		$status = 'deleted';
+	}else if ($v['size']== 0){
+		//echo "alert('Файл не выбран! Выберите PNG файл!');";
+		$status = 'none_file';
+	}else{
+		file_put_contents ($k,file_get_contents($v['tmp_name']));
+		if (file_exists($k))
+			//echo "alert('Файл сохранен! Для применения обновите список стримов!');";
+			$status = 'success';
+		else
+			//echo "alert('Err! Файл не сохранен!');";
+			$status = 'error';
+	}
+	break;
+}
+//echo 'window.close();';
+//echo '</script>';
+$icon_status = '';
+$icon_path_upload = '';
+$icon_path = '';
+
+
+if ($status == 'success' || $status == 'deleted') {
+
+	$channels_id_parsed = array_merge(
+		HD::get_items('vsetv_channels_id'),
+		HD::get_items('my_channels_id')
+	);
+
+	if (array_key_exists($_POST['id_key'], $channels_id_parsed)) {
+		$chanel_id = $channels_id_parsed[$_POST['id_key']];
+		$icon_path = HD::get_html_icon_path(str_replace('_HD', "", $chanel_id));
+		$icon_path_upload = SmartConfig::get_data_path() . '/logo/'. str_replace('_HD', "", $chanel_id) .'.png';
+	} else {
+		$icon_path = HD::get_html_icon_path($_POST['id_key']);
+		$icon_path_upload = SmartConfig::get_data_path() . '/logo/'. $_POST['id_key'] .'.png';
+	}
+
+	if (($icon_path == 'plugin_file://logo/0.png')||($icon_path == 'plugin_file://logo/00.png')) {
+		$icon_status = 'no_logo';
+	} else if  (preg_match('|plugin_file|', $icon_path)) {
+		$icon_status = 'in plugin';
+	} else {
+		$icon_status = 'in DATA';
+	}
+}
+
+
+$resp = array('status' => $status,
+		      'icon_status'=>$icon_status,
+		      'icon_path_upload'=>$icon_path_upload,
+	          'icon_src'=>str_replace ('127.0.0.1', HD::get_ip_address(), DuneSystem::$properties['plugin_cgi_url']) . "do_img?img=" . str_replace ('plugin_file://', DuneSystem::$properties['install_dir_path'] . '/', $icon_path));
+
+echo json_encode($resp);
+
+
+
+
+
+

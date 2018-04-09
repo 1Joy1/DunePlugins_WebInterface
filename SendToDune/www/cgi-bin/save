@@ -1,0 +1,9 @@
+<?
+error_reporting (E_ALL);
+require_once "do_config.php";
+header('Content-Type: text/x-csv; charset=utf-8');
+header("Content-Disposition: attachment;filename=".date("d-m-Y").".SendtoDune.txt");
+header("Content-Transfer-Encoding: binary ");
+$output = file_get_contents(DuneSystem::$properties['data_dir_path'] . '/movie_id');
+echo $output;
+?>
