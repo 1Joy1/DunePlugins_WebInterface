@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    var click = new Audio(location.origin + '/plugins/MegaRadio/clickkk.mp3');
+
 
     $('.upfotter').on('click', '.tapperform', function(event){
         event.preventDefault();
@@ -43,6 +45,7 @@ $(document).ready(function() {
                 setTimeout(function() {
                     $brand.css('color', '');
                 }, 200);
+                click.play();
             },
         });
     });
@@ -66,6 +69,7 @@ $(document).ready(function() {
                 setTimeout(function() {
                     $brand.css('color', '');
                 }, 200);
+                click.play();
             },
         });
 
