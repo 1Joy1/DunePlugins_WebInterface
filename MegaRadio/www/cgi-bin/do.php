@@ -21,9 +21,24 @@ foreach ($my_playlist as $id => $line){
         $icon_url = $m[1];
     else
         $icon_url = $line['poster_url'];
-    $streaming_url = "javascript:playCode('" . strval( base64_encode($id)) . "','$ip_address')";
-    
-    $item .= "<li class='item'><div class=\"image\"><a class=\"tune-in-link\" href=\"$streaming_url\"><span class=\"overlay\"></span><img src=\"$icon_url\" alt=\"$caption\" class=\"complete\"><span class=\"tune-in icon-play-circle\"></span></a></div><div class=\"info\"><h3 class=\"title\"><a href=\"$streaming_url\">$caption</a></h3><span class=\"track\">$description</span></div></li>";   
+    $streaming_url = strval( base64_encode($id));
+
+    $item .= '
+    <li class="item">
+        <div class="image">
+            <a href="#" data-streamurl="' . $streaming_url . '" class="tune-in-link">
+                <span class="overlay"></span>
+                <img src="' . $icon_url . '" alt="' . $caption . '" class="complete">
+                <span class="tune-in icon-play-circle"></span>
+            </a>
+        </div>
+        <div class="info">
+            <h3 class="title">
+                <a href="#" data-streamurl="' . $streaming_url . '">' . $caption . '</a>
+            </h3>
+            <span class="track">' . $description . '</span>
+        </div>
+    </li>';
 }
 ?>
 <!DOCTYPE html>
@@ -41,42 +56,41 @@ foreach ($my_playlist as $id => $line){
 <link href="<?echo $r_path;?>css/index.css" media="screen" rel="stylesheet" type="text/css">
 
 <script src="<?echo $r_path;?>js/jquery-1.11.3.min.js" type="text/javascript"></script>
-<script src="<?echo $r_path;?>js/remote.js" type="text/javascript"></script>
-<script src="<?echo $r_path;?>js/index.js" type="text/javascript"></script>
+<script src="<?echo $r_path;?>js/index.js?173" type="text/javascript"></script>
 
 </head>
 <body>
     <header id="main-header">
-        <div class="navbar-brand" >    
+        <div class="navbar-brand" >
             <img src="<?echo $r_path;?>img/logo.png">
             <a href="#">
                 MegaRadio
             </a>
         </div>
-                    
+
         <div class="right">
             <nav class="button-dune-controll">
                 <ul>
                     <li class="nothidden">
-                        <a href="javascript:keyCode('BC43BF00','<?echo $ip_address;?>')" class="power">Power on/off</a>
+                        <a href="#" data-ircode="BC43BF00" data-ipaddr="<?echo $ip_address;?>" class="power button ir-code">Power on/off</a>
                     </li>
                     <li>
-                        <a href="javascript:keyCode('AC53BF00','<?echo $ip_address;?>')" class="signup">Volume- <span class="glyphicon glyphicon-volume-down"></a>
+                        <a href="#" data-ircode="AC53BF00" data-ipaddr="<?echo $ip_address;?>" class="signup button ir-code">Volume- <span class="glyphicon glyphicon-volume-down"></a>
                     </li>
                     <li>
-                        <a href="javascript:keyCode('B946BF00','<?echo $ip_address;?>')" class="signup">Mute <span class="glyphicon glyphicon-volume-off"></a>
+                        <a href="#" data-ircode="B946BF00" data-ipaddr="<?echo $ip_address;?>" class="signup button ir-code">Mute <span class="glyphicon glyphicon-volume-off"></a>
                     </li>
                     <li>
-                        <a href="javascript:keyCode('AD52BF00','<?echo $ip_address;?>')" class="signup">Volume+ <span class="glyphicon glyphicon-volume-up"></a>
+                        <a href="#" data-ircode="AD52BF00" data-ipaddr="<?echo $ip_address;?>" class="signup button ir-code">Volume+ <span class="glyphicon glyphicon-volume-up"></a>
                     </li>
                     <li>
-                        <a href="javascript:keyCode('E619BF00','<?echo $ip_address;?>')" class="signup">Stop <span class="glyphicon glyphicon-stop"></a>
+                        <a href="#" data-ircode="E619BF00" data-ipaddr="<?echo $ip_address;?>" class="signup button ir-code">Stop <span class="glyphicon glyphicon-stop"></a>
                     </li>
                     <li>
-                        <a href="javascript:keyCode('9F60BF00','<?echo $ip_address;?>')" class="record">Record <span class="glyphicon glyphicon-record"></a>
+                        <a href="#" data-ircode="9F60BF00" data-ipaddr="<?echo $ip_address;?>" class="record button ir-code">Record <span class="glyphicon glyphicon-record"></a>
                     </li>
                     <li>
-                        <a class="signup" href = "javascript:void(0)" onclick = "document.getElementById('envelope').style.display='block';">Add Radio station <span class="glyphicon glyphicon-plus"></a>
+                        <a class="signup button" href = "javascript:void(0)" onclick = "document.getElementById('envelope').style.display='block';">Add Radio station <span class="glyphicon glyphicon-plus"></a>
                     </li>
                 </ul>
             </nav>
@@ -107,7 +121,7 @@ foreach ($my_playlist as $id => $line){
             </section>
         </div>
     </div>
-    
+
     <div class="footer">
         <div class="upfotter">
             <div class="tappercroping">
@@ -115,33 +129,38 @@ foreach ($my_playlist as $id => $line){
                     <span class="glyphicon glyphicon-chevron-up"></span>
                 </div>
             </div>
-        </div>        
+        </div>
         <div class="row">
             <nav class="button-dune-controll">
                 <ul>
                     <li>
-                        <a href="javascript:keyCode('AC53BF00','192.168.1.9')" class="signup"><span class="glyphicon glyphicon-volume-down"></span>-</a>
+                        <a href="#" data-ircode="AC53BF00" data-ipaddr="<?echo $ip_address;?>" class="signup button ir-code">
+                            <span class="glyphicon glyphicon-volume-down"></span>-</a>
                     </li>
                     <li>
-                        <a href="javascript:keyCode('B946BF00','192.168.1.9')" class="signup"><span class="glyphicon glyphicon-volume-off"></span></a>
+                        <a href="#" data-ircode="B946BF00" data-ipaddr="<?echo $ip_address;?>" class="signup button ir-code">
+                            <span class="glyphicon glyphicon-volume-off"></span></a>
                     </li>
                     <li>
-                        <a href="javascript:keyCode('AD52BF00','192.168.1.9')" class="signup"><span class="glyphicon glyphicon-volume-up"></span>+</a>
+                        <a href="#" data-ircode="AD52BF00" data-ipaddr="<?echo $ip_address;?>" class="signup button ir-code">
+                            <span class="glyphicon glyphicon-volume-up"></span>+</a>
                     </li>
                 </ul>
             </nav>
-        </div>    
+        </div>
         <div class="row">
             <nav class="button-dune-controll">
                 <ul>
                     <li>
-                        <a href="javascript:keyCode('E619BF00','192.168.1.9')" class="signup"><span class="glyphicon glyphicon-stop"></span></a>
+                        <a href="#" data-ircode="E619BF00" data-ipaddr="<?echo $ip_address;?>" class="signup button ir-code">
+                            <span class="glyphicon glyphicon-stop"></span></a>
                     </li>
                     <li>
-                        <a href="javascript:keyCode('9F60BF00','192.168.1.9')" class="record"><span class="glyphicon glyphicon-record"></span></a>
+                        <a href="#" data-ircode="9F60BF00" data-ipaddr="<?echo $ip_address;?>" class="record button ir-code">
+                            <span class="glyphicon glyphicon-record"></span></a>
                     </li>
                     <li>
-                        <a class="signup" href="javascript:void(0)" onclick="document.getElementById('envelope').style.display='block';document.getElementById('fade').style.display='block'"><span class="glyphicon glyphicon-plus"></a>
+                        <a class="signup button" href="javascript:void(0)" onclick="document.getElementById('envelope').style.display='block';document.getElementById('fade').style.display='block'"><span class="glyphicon glyphicon-plus"></a>
                     </li>
                 </ul>
             </nav>
