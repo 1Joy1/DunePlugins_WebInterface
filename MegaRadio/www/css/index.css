@@ -1,4 +1,5 @@
-@charset "UTF-8";@-webkit-keyframes pulse{0%{-webkit-transform:scale(1)}
+@charset "UTF-8";
+@-webkit-keyframes pulse{0%{-webkit-transform:scale(1)}
 25%{-webkit-transform:scale(0.75)}
 50%{-webkit-transform:scale(1.2)}
 100%{-webkit-transform:scale(1)}
@@ -62,6 +63,16 @@
 @keyframes spin{0%{-webkit-transform:rotate(0deg);-moz-transform:rotate(0deg);-o-transform:rotate(0deg);transfrom:rotate(0deg);-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-o-transform-style:preserve-3d;transform-style:preserve-3d}
 100%{-webkit-transform:rotate(360deg);-moz-transform:rotate(360deg);-o-transform:rotate(360deg);transform:rotate(360deg);-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-o-transform-style:preserve-3d;transform-style:preserve-3d}
 }
+@-webkit-keyframes scroll {0% {-webkit-transform: translate(0, 0); transform: translate(0, 0);}
+100%{-webkit-transform: translate(-100%, 0);transform: translate(-100%, 0);}
+}
+@-moz-keyframes scroll {0%{-moz-transform: translate(0, 0); transform: translate(0, 0);}
+100% {-moz-transform: translate(-100%, 0); transform: translate(-100%, 0);}
+}
+@keyframes scroll {0% {transform: translate(0, 0);}
+100% {transform: translate(-100%, 0);}
+}
+
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font:inherit;font-size:100%;vertical-align:baseline}
 html{line-height:1}
 ol,ul{list-style:none}
@@ -1700,3 +1711,17 @@ html .compact-mode .channel-list li:nth-child(5n){margin-right:0}
     background:-ms-linear-gradient(top,  #2c558f 3%, #3165ae 50%);
     background:linear-gradient(to bottom, #2c558f 3%, #3165ae 50%);
 }
+li:hover .info {
+    overflow: hidden;
+}
+li:hover .info span {
+    display: inline-block !important;
+    padding-bottom: 10px;
+    margin-top: -1px !important;
+    padding-left: 100%;
+    -webkit-animation: scroll 10s infinite linear;
+    -moz-animation: scroll 10s infinite linear;
+    animation: scroll 10s infinite linear;
+    margin-bottom: 0px !important;
+}
+.channel-list li .track{margin-bottom: 20px;}
